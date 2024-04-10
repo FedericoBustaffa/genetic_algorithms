@@ -1,15 +1,15 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17 -O3 -march=native
 
-OBJECTS = main.o
-TARGETS = genetic.x
+OBJECTS = knapsack.o
+TARGETS = knapsack.x
 
 all: $(TARGETS)
 
-genetic.x: $(OBJECTS)
+knapsack.x: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-main.o: main.cpp
+knapsack.o: knapsack.cpp
 
 clean:
 	rm -f $(OBJECTS) $(TARGETS)
