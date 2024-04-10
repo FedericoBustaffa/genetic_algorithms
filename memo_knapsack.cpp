@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -34,32 +35,22 @@ int brute_force(const std::vector<item>& items, int capacity, int n,
     return value_max;
 }
 
-int brute_force(const std::vector<item>& items, int capacity, int n)
-{
-    if (n == 0 || capacity == 0)
-        return 0;
-
-    if (items[n - 1].weight > capacity)
-        return brute_force(items, capacity, n - 1);
-
-    int value_picked =
-        items[n - 1].value + brute_force(items, capacity - items[n - 1].weight, n - 1);
-    int value_not_picked = brute_force(items, capacity, n - 1);
-
-    int value_max = std::max(value_picked, value_not_picked);
-
-    return value_max;
-}
-
 int main(int argc, const char** argv)
 {
+    if (argc != 2)
+    {
+        std::cerr << "USAGE: ./memo_knapsack.x <n items>" << std::endl;
+        return 1;
+    }
+
     std::default_random_engine engine(std::time(nullptr));
     std::uniform_int_distribution<int> dist(1, 50);
 
     int total_value = 0;
     int total_weight = 0;
+    size_t num_of_items = std::stoul(argv[1]);
     std::vector<item> items;
-    for (size_t i = 0; i < 1000; ++i)
+    for (size_t i = 0; i < num_of_items; ++i)
     {
         items.push_back({dist(engine), dist(engine)});
         total_value += items[i].value;
@@ -72,13 +63,18 @@ int main(int argc, const char** argv)
     int capacity = total_weight * 0.75;
     std::cout << "capacity: " << capacity << std::endl;
 
+    // memoization
     std::map<std::pair<int, int>, int> memo;
+
     auto start = std::chrono::high_resolution_clock::now();
-    int solution = brute_force(items, capacity, (int)items.size(), memo);
+
+    int optimal_value = brute_force(items, capacity, (int)items.size(), memo);
+
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
-    std::cout << "memo time: " << duration.count() << std::endl;
-    std::cout << solution << std::endl;
+    std::cout << "memoization brute force time: " << duration.count() << std::endl;
+
+    std::cout << "optimal solution: " << optimal_value << std::endl;
 
     return 0;
 }
