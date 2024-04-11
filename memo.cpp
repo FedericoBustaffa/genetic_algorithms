@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <cstdint>
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -11,7 +12,7 @@
 #include "item.hpp"
 
 int brute_force(const std::vector<item>& items, int capacity, int n,
-                std::map<std::pair<int, int>, int>& memo)
+                std::map<std::pair<int64_t, int64_t>, int64_t>& memo)
 {
     if (n == 0 || capacity == 0)
         return 0;
@@ -19,16 +20,16 @@ int brute_force(const std::vector<item>& items, int capacity, int n,
     if (items[n - 1].weight > capacity)
         return brute_force(items, capacity, n - 1, memo);
 
-    std::pair<int, int> s(capacity, n);
+    std::pair<int64_t, int64_t> s(capacity, n);
     auto it = memo.find(s);
     if (it != memo.end())
         return it->second;
 
-    int value_picked =
+    int64_t value_picked =
         items[n - 1].value + brute_force(items, capacity - items[n - 1].weight, n - 1, memo);
-    int value_not_picked = brute_force(items, capacity, n - 1, memo);
+    int64_t value_not_picked = brute_force(items, capacity, n - 1, memo);
 
-    int value_max = std::max(value_picked, value_not_picked);
+    int64_t value_max = std::max(value_picked, value_not_picked);
 
     memo[s] = value_max;
 
@@ -64,11 +65,11 @@ int main(int argc, const char** argv)
     std::cout << "capacity: " << capacity << std::endl;
 
     // memoization
-    std::map<std::pair<int, int>, int> memo;
+    std::map<std::pair<int64_t, int64_t>, int64_t> memo;
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    int optimal_value = brute_force(items, capacity, (int)items.size(), memo);
+    int64_t optimal_value = brute_force(items, capacity, (int)items.size(), memo);
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
