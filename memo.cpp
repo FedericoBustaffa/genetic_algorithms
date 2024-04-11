@@ -39,7 +39,7 @@ int main(int argc, const char** argv)
 {
     if (argc != 2)
     {
-        std::cerr << "USAGE: ./memo_knapsack.x <n items>" << std::endl;
+        std::cerr << "USAGE: ./memo.x <n items>" << std::endl;
         return 1;
     }
 

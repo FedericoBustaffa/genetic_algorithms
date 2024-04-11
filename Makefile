@@ -1,15 +1,16 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17 -O3 -march=native
 
-OBJECTS = memo_knapsack.o
-TARGETS = memo_knapsack.x
+TARGETS = memo.x greedy.x
 
 all: $(TARGETS)
 
-memo_knapsack.x: $(OBJECTS)
+memo.x: memo.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-memo_knapsack.o: memo_knapsack.cpp
+greedy.x: greedy.cpp
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
 
 clean:
 	rm -f $(OBJECTS) $(TARGETS)
