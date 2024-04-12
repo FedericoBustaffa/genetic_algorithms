@@ -24,7 +24,7 @@ void stochastic_mutation(std::vector<individual<T1, T2>>& children, const std::v
                 old_gene = children[i][j];
                 do
                 {
-                    // children[i][j] = values[values_dist(engine)];
+                    children[i][j] = values[values_dist(engine)];
                 } while (children[i][j] == old_gene);
             }
         }

@@ -22,10 +22,15 @@ class individual
 
     genome_type& operator[](size_t i) { return genome[i]; }
 
-    bool operator==(const individual& other) const
-    {
-        return genome == other.genome && fitness == other.fitness;
-    }
+    bool operator==(const individual& other) const { return genome == other.genome; }
+
+    bool operator<(const individual& other) const { return fitness < other.fitness; }
+
+    bool operator<=(const individual& other) const { return fitness <= other.fitness; }
+
+    bool operator>(const individual& other) const { return fitness > other.fitness; }
+
+    bool operator>=(const individual& other) const { return fitness >= other.fitness; }
 
     fitness_type get_fitness() const { return fitness; }
 
