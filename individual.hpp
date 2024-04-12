@@ -18,8 +18,20 @@ class individual
         fitness = other.fitness;
     }
 
-    genome_type operator[](size_t i) { return genome[i]; }
-    fitness_type get_fitness() { return fitness; }
+    const genome_type operator[](size_t i) const { return genome[i]; }
+
+    genome_type& operator[](size_t i) { return genome[i]; }
+
+    bool operator==(const individual& other) const
+    {
+        return genome == other.genome && fitness == other.fitness;
+    }
+
+    fitness_type get_fitness() const { return fitness; }
+
+    void set_fitness(fitness_type value) { fitness = value; }
+
+    const std::vector<genome_type>& get_genome() const { return genome; }
 
   private:
     std::vector<genome_type> genome;

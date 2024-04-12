@@ -13,7 +13,7 @@
 #include "selection.hpp"
 #include "spawn.hpp"
 
-int64_t fitness(const std::vector<bool> &genome, const std::vector<item> &items, size_t capacity)
+int64_t fitness(const std::vector<int> &genome, const std::vector<item> &items, size_t capacity)
 {
     int64_t value = 0;
     int64_t weight = 0;
@@ -60,37 +60,34 @@ int main(int argc, const char **argv)
 
     // generate random initial population
     size_t population_size = std::stoul(argv[2]);
-    std::vector<individual<bool, int64_t>> population =
-        generate_population<bool>(population_size, num_of_items, {true, false}, engine);
+    std::vector<individual<int, int64_t>> population =
+        generate_population<int, int64_t>(population_size, num_of_items, {0, 1}, engine);
 
-    std::cout << "\nfitness values" << std::endl;
-    std::vector<int64_t> fitness_values;
     for (size_t i = 0; i < population_size; ++i)
     {
-        fitness_values.push_back(fitness(population[i], items, capacity));
+        population[i].set_fitness(fitness(population[i].get_genome(), items, capacity));
         for (size_t j = 0; j < num_of_items; ++j)
             std::cout << population[i][j] << std::flush;
-        std::cout << ": " << fitness_values[i] << std::endl;
+        std::cout << ": " << population[i].get_fitness() << std::endl;
     }
 
     size_t generations = std::stoul(argv[3]);
     std::vector<size_t> parents;
-    std::vector<std::vector<bool>> children;
-    std::vector<int64_t> children_fitness(population_size, 0);
+    std::vector<individual<int, int64_t>> children;
     for (size_t g = 0; g < generations; ++g)
     {
         // selection
-        parents = tournament<bool, int64_t>(population, fitness_values, engine);
+        parents = tournament<int, int64_t>(population, engine);
 
         // crossover
-        children = one_point<bool>(population, parents, num_of_items, engine);
+        children = one_point<int, int64_t>(population, parents, num_of_items, engine);
 
         // mutation
-        stochastic_mutation<bool>(children, {false, true}, num_of_items, 0.01, engine);
+        stochastic_mutation<int, int64_t>(children, {0, 1}, num_of_items, 0.01, engine);
 
         // compute children fitness
         for (size_t i = 0; i < population_size; ++i)
-            children_fitness[i] = fitness(children[i], items, capacity);
+            children[i].set_fitness(fitness(children[i].get_genome(), items, capacity));
 
         // replacement
     }
