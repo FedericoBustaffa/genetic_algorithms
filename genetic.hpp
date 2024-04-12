@@ -1,6 +1,7 @@
 #ifndef GENETIC_HPP
 #define GENETIC_HPP
 
+#include <algorithm>
 #include <ctime>
 #include <random>
 #include <vector>
@@ -12,23 +13,29 @@ class ga
 {
   public:
     ga(size_t population_size, size_t genome_length, const std::vector<T1>& genome_values,
-       size_t generations, double mutation_rate)
+       size_t generations)
         : population_size(population_size),
           genome_length(genome_length),
           genome_values(genome_values),
           generations(generations),
-          mutation_rate(mutation_rate),
           engine(std::time(nullptr)),
-          genome_values_dist(0, genome_values.size() - 1)
+          genome_values_dist(0, genome_values.size() - 1),
+          population_dist(0, population_size - 1),
+          parents_dist(0, population_size / 2 - 1)
     {
         population.reserve(population_size);
+        parents.reserve(population_size / 2);
         offsprings.reserve(population_size);
     }
 
-    // get/set methods
+    // get methods
     const std::vector<individual<T1, T2>>& get_population() const { return population; }
 
     size_t get_population_size() const { return population_size; }
+
+    size_t get_genome_length() const { return genome_length; }
+
+    const individual<T1, T2>& get_best_individual() const { return best_individual; }
 
     // genetic methods
     // population_generation
@@ -38,12 +45,29 @@ class ga
     template <typename Callable, typename... Args>
     void evaluate_population(Callable fitness, Args... args)
     {
+        T2 fitness_value;
         for (size_t i = 0; i < population_size; ++i)
-            population[i].set_fitness(fitness(population[i].get_genome(), args...));
+        {
+            fitness_value = fitness(population[i].get_genome(), args...);
+            population[i].set_fitness(fitness_value);
+        }
+        std::sort(population.rbegin(), population.rend());
+
+        if (population[0].get_fitness() > best_individual.get_fitness())
+            best_individual = population[0];
     }
 
     // Selection systems
-    // void tournament();
+    void tournament();
+
+    // crossover operators
+    void one_point();
+
+    // mutation operators
+    void random_mutate(double mutation_rate);
+
+    // replacemente policies
+    void replace();
 
   private:
     // support methods
@@ -51,8 +75,13 @@ class ga
     // generate a random genome
     individual<T1, T2> generate_genome();
 
-    // FIX
-    // size_t tournament_clash();
+    // choose two random individuals for reproduction
+    // higher fitness wins
+    size_t tournament_clash();
+
+    // crossover
+    individual<T1, T2> one_point_crossover(const individual<T1, T2>& a,
+                                           const individual<T1, T2>& b, size_t crossover_point);
 
   private:
     // paremeters
@@ -60,16 +89,18 @@ class ga
     size_t genome_length;
     std::vector<T1> genome_values;
     size_t generations;
-    double mutation_rate;
 
     // individuals
     std::vector<individual<T1, T2>> population;
+    std::vector<size_t> parents;
     std::vector<individual<T1, T2>> offsprings;
     individual<T1, T2> best_individual;
 
     // random engine
     std::default_random_engine engine;
     std::uniform_int_distribution<size_t> genome_values_dist;
+    std::uniform_int_distribution<size_t> population_dist;
+    std::uniform_int_distribution<size_t> parents_dist;
 };
 
 #endif  // !GENETIC_HPP

@@ -4,28 +4,25 @@
 #include <random>
 #include <vector>
 
-#include "individual.hpp"
+#include "genetic.hpp"
 
 template <typename T1, typename T2>
-void stochastic_mutation(std::vector<individual<T1, T2>>& children, const std::vector<T1>& values,
-                         size_t genome_length, double mutation_rate,
-                         std::default_random_engine& engine)
+void ga<T1, T2>::random_mutate(double mutation_rate)
 {
     std::bernoulli_distribution mutation_dist(mutation_rate);
-    std::uniform_int_distribution<size_t> values_dist(0, values.size() - 1);
 
     T1 old_gene;
-    for (size_t i = 0; i < children.size(); ++i)
+    for (size_t i = 0; i < offsprings.size(); ++i)
     {
         for (size_t j = 0; j < genome_length; ++j)
         {
             if (mutation_dist(engine))
             {
-                old_gene = children[i][j];
+                old_gene = offsprings[i][j];
                 do
                 {
-                    children[i][j] = values[values_dist(engine)];
-                } while (children[i][j] == old_gene);
+                    offsprings[i][j] = genome_values[genome_values_dist(engine)];
+                } while (offsprings[i][j] == old_gene);
             }
         }
     }
