@@ -8,13 +8,8 @@
 #include <string>
 #include <vector>
 
-#include "crossover.hpp"
-#include "individual.hpp"
+#include "genetic_algorithms.hpp"
 #include "item.hpp"
-#include "mutation.hpp"
-#include "replacement.hpp"
-#include "selection.hpp"
-#include "spawn.hpp"
 
 std::pair<int, int> greedy(std::vector<item> &items, int capacity)
 {
@@ -89,54 +84,13 @@ int main(int argc, const char **argv)
     // generate random initial population
     std::cout << "************ GENETIC ****************" << std::endl;
     size_t population_size = std::stoul(argv[2]);
-    std::vector<individual<int, int64_t>> population =
-        generate_population<int, int64_t>(population_size, num_of_items, {0, 1}, engine);
-
-    for (size_t i = 0; i < population_size; ++i)
-        population[i].set_fitness(fitness(population[i].get_genome(), items, capacity));
-    std::sort(population.rbegin(), population.rend());
-    individual<int, int64_t> best_individual = population[0];
-    std::cout << "first: " << best_individual.get_fitness() << std::endl;
-
     size_t generations = std::stoul(argv[3]);
     double mutation_rate = std::stod(argv[4]);
+    ga<int, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations,
+                                      mutation_rate);
 
-    std::vector<size_t> parents;
-    std::vector<individual<int, int64_t>> children;
-    for (size_t g = 0; g < generations; ++g)
-    {
-        // selection
-        parents = tournament<int, int64_t>(population, engine);
-
-        // crossover
-        children = one_point<int, int64_t>(population, parents, num_of_items, engine);
-
-        // mutation
-        stochastic_mutation<int, int64_t>(children, {0, 1}, num_of_items, mutation_rate, engine);
-
-        // compute children fitness
-        for (size_t i = 0; i < population_size; ++i)
-            children[i].set_fitness(fitness(children[i].get_genome(), items, capacity));
-
-        // replacement
-        // population = replacement<int, int64_t>(population, children);
-        population = children;
-
-        // for (const auto &i : population)
-        //     std::cout << i.get_fitness() << std::endl;
-
-        if (population[0] > best_individual)
-            best_individual = population[0];
-    }
-
-    std::cout << "fitness: " << best_individual.get_fitness() << std::endl;
-    total_value = 0;
-    total_weight = 0;
-    for (size_t i = 0; i < num_of_items; ++i)
-    {
-        total_value += best_individual[i] * items[i].value;
-        total_weight += best_individual[i] * items[i].weight;
-    }
+    genetic_knapsack.generate_population();
+    genetic_knapsack.evaluate_population(fitness, items, capacity);
 
     std::cout << "value: " << total_value << std::endl;
     std::cout << "weight: " << total_weight << std::endl;

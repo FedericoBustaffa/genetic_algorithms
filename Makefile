@@ -11,7 +11,7 @@ memo.x: memo.cpp
 greedy.x: greedy.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-genetic.x: genetic.cpp individual.hpp spawn.hpp selection.hpp crossover.hpp mutation.hpp replacement.hpp
+genetic.x: main.cpp genetic.hpp individual.hpp spawn.hpp selection.hpp crossover.hpp mutation.hpp replacement.hpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
