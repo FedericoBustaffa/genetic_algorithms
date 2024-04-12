@@ -18,6 +18,12 @@ class individual
         fitness = other.fitness;
     }
 
+    void operator=(const individual& other)
+    {
+        genome = other.genome;
+        fitness = other.fitness;
+    }
+
     const genome_type operator[](size_t i) const { return genome[i]; }
 
     genome_type& operator[](size_t i) { return genome[i]; }

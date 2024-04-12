@@ -24,6 +24,7 @@ size_t ga<T1, T2>::tournament_clash()
 template <typename T1, typename T2>
 void ga<T1, T2>::tournament()
 {
+    parents.clear();
     size_t p;
     int tries = 0;
     for (size_t i = 0; i < population.size() / 2; ++i)

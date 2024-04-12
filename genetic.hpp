@@ -1,7 +1,6 @@
 #ifndef GENETIC_HPP
 #define GENETIC_HPP
 
-#include <algorithm>
 #include <ctime>
 #include <random>
 #include <vector>
@@ -43,25 +42,20 @@ class ga
 
     // evaluate the population with the given fitness function
     template <typename Callable, typename... Args>
-    void evaluate_population(Callable fitness, Args... args)
-    {
-        T2 fitness_value;
-        for (size_t i = 0; i < population_size; ++i)
-        {
-            fitness_value = fitness(population[i].get_genome(), args...);
-            population[i].set_fitness(fitness_value);
-        }
-        std::sort(population.rbegin(), population.rend());
+    void evaluate_population(Callable fitness, Args... args);
 
-        if (population[0].get_fitness() > best_individual.get_fitness())
-            best_individual = population[0];
-    }
+    template <typename Callable, typename... Args>
+    void evaluate_offsprings(Callable fitness, Args... args);
 
     // Selection systems
     void tournament();
 
     // crossover operators
-    void one_point();
+    // split the father's and mother's genomes in one random point
+    void one_point_crossover();
+
+    //
+    void random_crossover();
 
     // mutation operators
     void random_mutate(double mutation_rate);
@@ -80,8 +74,8 @@ class ga
     size_t tournament_clash();
 
     // crossover
-    individual<T1, T2> one_point_crossover(const individual<T1, T2>& a,
-                                           const individual<T1, T2>& b, size_t crossover_point);
+    individual<T1, T2> one_point(const individual<T1, T2>& a, const individual<T1, T2>& b,
+                                 size_t crossover_point);
 
   private:
     // paremeters

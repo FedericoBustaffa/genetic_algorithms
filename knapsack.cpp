@@ -9,7 +9,14 @@
 #include <vector>
 
 #include "genetic_algorithms.hpp"
-#include "item.hpp"
+
+struct item
+{
+    item(int64_t value, int64_t weight) : value(value), weight(weight){};
+
+    int64_t value;
+    int64_t weight;
+};
 
 std::pair<int, int> greedy(std::vector<item> &items, int capacity)
 {
@@ -30,7 +37,8 @@ std::pair<int, int> greedy(std::vector<item> &items, int capacity)
     return {value, weight};
 }
 
-int64_t fitness(const std::vector<int> &genome, const std::vector<item> &items, int64_t capacity)
+int64_t fitness(const std::vector<int64_t> &genome, const std::vector<item> &items,
+                int64_t capacity)
 {
     int64_t value = 0;
     int64_t weight = 0;
@@ -50,8 +58,9 @@ int main(int argc, const char **argv)
 {
     if (argc != 5)
     {
-        std::cerr << "USAGE: ./genetic.x <n-items> <population-size> <generations> <mutation-rate>"
-                  << std::endl;
+        std::cerr
+            << "USAGE: ./knapsack.x <n-items> <population-size> <generations> <mutation-rate>"
+            << std::endl;
         return 1;
     }
 
@@ -86,23 +95,43 @@ int main(int argc, const char **argv)
     size_t population_size = std::stoul(argv[2]);
     size_t generations = std::stoul(argv[3]);
     double mutation_rate = std::stod(argv[4]);
-    ga<int, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations);
+
+    // genetic solver
+    ga<int64_t, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations);
 
     genetic_knapsack.generate_population();
     genetic_knapsack.evaluate_population(fitness, items, capacity);
+    auto best_individual = genetic_knapsack.get_best_individual();
+    int64_t value = 0;
+    int64_t weight = 0;
+    for (size_t i = 0; i < num_of_items; ++i)
+    {
+        value += best_individual[i] * items[i].value;
+        weight += best_individual[i] * items[i].weight;
+    }
+    std::cout << "value: " << value << std::endl;
+    std::cout << "weight: " << weight << std::endl;
+
     for (size_t g = 0; g < generations; ++g)
     {
         genetic_knapsack.tournament();
-        genetic_knapsack.one_point();
+        genetic_knapsack.random_crossover();
         genetic_knapsack.random_mutate(mutation_rate);
+        genetic_knapsack.evaluate_offsprings(fitness, items, capacity);
         genetic_knapsack.replace();
         genetic_knapsack.evaluate_population(fitness, items, capacity);
     }
 
-    individual<int, int64_t> best_individual = genetic_knapsack.get_best_individual();
-    std::cout << "fitness: " << best_individual.get_fitness() << std::endl;
-    std::cout << "value: " << total_value << std::endl;
-    std::cout << "weight: " << total_weight << std::endl;
+    best_individual = genetic_knapsack.get_best_individual();
+    value = 0;
+    weight = 0;
+    for (size_t i = 0; i < num_of_items; ++i)
+    {
+        value += best_individual[i] * items[i].value;
+        weight += best_individual[i] * items[i].weight;
+    }
+    std::cout << "value: " << value << std::endl;
+    std::cout << "weight: " << weight << std::endl;
 
     return 0;
 }

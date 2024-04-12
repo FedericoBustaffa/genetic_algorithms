@@ -1,18 +1,17 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17 -O3
 
-TARGETS = memo.x greedy.x genetic.x
+HEADERS = genetic_algorithms.hpp genetic.hpp individual.hpp spawn.hpp selection.hpp crossover.hpp mutation.hpp replacement.hpp evaluation.hpp
+
+TARGETS = knapsack.x travel_salesman.x
 
 all: $(TARGETS)
 
-memo.x: memo.cpp
-	$(CXX) $(CXXFLAGS) $^ -o $@
+knapsack.x: knapsack.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) knapsack.cpp -o $@
 
-greedy.x: greedy.cpp
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-genetic.x: main.cpp genetic_algorithms.hpp genetic.hpp individual.hpp spawn.hpp selection.hpp crossover.hpp mutation.hpp replacement.hpp
-	$(CXX) $(CXXFLAGS) $^ -o $@
+travel_salesman.x: travel_salesman.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) travel_salesman.cpp -o $@
 
 clean:
 	rm -f $(OBJECTS) $(TARGETS)

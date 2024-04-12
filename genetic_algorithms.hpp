@@ -2,6 +2,7 @@
 #define GENETIC_ALGORITHMS_HPP
 
 #include "crossover.hpp"
+#include "evaluation.hpp"
 #include "mutation.hpp"
 #include "replacement.hpp"
 #include "selection.hpp"
