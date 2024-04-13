@@ -50,6 +50,8 @@ class ga
     // Selection systems
     void tournament();
 
+    void roulette();
+
     // crossover operators
     // split the father's and mother's genomes in one random point
     void one_point_crossover();

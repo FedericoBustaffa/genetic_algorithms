@@ -40,4 +40,10 @@ void ga<T1, T2>::tournament()
     }
 }
 
+template <typename T1, typename T2>
+void ga<T1, T2>::roulette()
+{
+    parents.clear();
+}
+
 #endif  // !SELECTION_HPP
