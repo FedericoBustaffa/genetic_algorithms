@@ -60,12 +60,12 @@ void ga<T1, T2>::roulette()
     int tries = 0;
     for (size_t i = 0; i < population_size / 2; ++i)
     {
-        p = dist(engine);
+        p = population[dist(engine)];
         std::cout << p << std::endl;
         tries = 0;
         while (std::find(parents.begin(), parents.end(), p) != parents.end() && tries < 20)
         {
-            p = dist(engine);
+            p = population[dist(engine)];
             tries++;
         }
         parents.push_back(p);

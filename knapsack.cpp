@@ -114,7 +114,7 @@ int main(int argc, const char **argv)
 
     for (size_t g = 0; g < generations; ++g)
     {
-        genetic_knapsack.tournament();
+        genetic_knapsack.roulette();
         genetic_knapsack.random_crossover();
         genetic_knapsack.random_mutate(mutation_rate);
         genetic_knapsack.evaluate_offsprings(fitness, items, capacity);
