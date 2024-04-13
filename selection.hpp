@@ -3,6 +3,8 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <iostream>
+#include <random>
 
 #include "genetic.hpp"
 
@@ -27,7 +29,7 @@ void ga<T1, T2>::tournament()
     parents.clear();
     size_t p;
     int tries = 0;
-    for (size_t i = 0; i < population.size() / 2; ++i)
+    for (size_t i = 0; i < population_size / 2; ++i)
     {
         p = tournament_clash();
         tries = 0;
@@ -44,6 +46,30 @@ template <typename T1, typename T2>
 void ga<T1, T2>::roulette()
 {
     parents.clear();
+
+    T2 fitness_sum = 0;
+    for (size_t i = 0; i < population_size; ++i)
+        fitness_sum += population[i].get_fitness();
+
+    std::vector<T2> probabilities;
+    for (size_t i = 0; i < population_size; ++i)
+        probabilities.push_back(static_cast<double>(population[i].get_fitness()) / fitness_sum);
+
+    std::discrete_distribution<size_t> dist(probabilities.begin(), probabilities.end());
+    size_t p;
+    int tries = 0;
+    for (size_t i = 0; i < population_size / 2; ++i)
+    {
+        p = dist(engine);
+        std::cout << p << std::endl;
+        tries = 0;
+        while (std::find(parents.begin(), parents.end(), p) != parents.end() && tries < 20)
+        {
+            p = dist(engine);
+            tries++;
+        }
+        parents.push_back(p);
+    }
 }
 
 #endif  // !SELECTION_HPP

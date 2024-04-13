@@ -17,7 +17,7 @@ class ga
           genome_length(genome_length),
           genome_values(genome_values),
           generations(generations),
-          engine(std::time(nullptr)),
+          engine(random_device()),
           genome_values_dist(0, genome_values.size() - 1),
           population_dist(0, population_size - 1),
           parents_dist(0, population_size / 2 - 1)
@@ -93,7 +93,8 @@ class ga
     individual<T1, T2> best_individual;
 
     // random engine
-    std::default_random_engine engine;
+    std::random_device random_device;
+    std::mt19937 engine;
     std::uniform_int_distribution<size_t> genome_values_dist;
     std::uniform_int_distribution<size_t> population_dist;
     std::uniform_int_distribution<size_t> parents_dist;
