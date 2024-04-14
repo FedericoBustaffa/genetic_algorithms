@@ -50,7 +50,9 @@ class ga
 
     // genetic methods
     // population_generation
-    void generate_population(bool with_repetitions);
+    void generate_population();
+
+    void shuffle_generate_population();
 
     // evaluate the population with the given fitness function
     template <typename Callable, typename... Args>
@@ -68,11 +70,19 @@ class ga
     // split the father's and mother's genomes in one random point
     void one_point_crossover();
 
-    //
+    void one_point_crossover_v2();
+
+    // every gene has 50% of chance to be ineherited by father or mother
     void random_crossover();
 
     // mutation operators
-    void random_mutate(double mutation_rate);
+    void random_mutation(double mutation_rate);
+
+    // swap two genes
+    void swap_mutation(double mutation_rate);
+
+    // 
+    void rotate_mutation(double mutation_rate);
 
     // replacemente policies
     void replace();
@@ -81,7 +91,7 @@ class ga
     // support methods
 
     // generate a random genome
-    individual<T1, T2> generate_genome(bool with_repetitions);
+    individual<T1, T2> generate_genome();
 
     // choose two random individuals for reproduction
     // higher fitness wins
@@ -90,6 +100,9 @@ class ga
     // crossover
     individual<T1, T2> one_point(const individual<T1, T2>& a, const individual<T1, T2>& b,
                                  size_t crossover_point);
+
+    individual<T1, T2> one_point_v2(const individual<T1, T2>& a, const individual<T1, T2>& b,
+                                    size_t crossover_point);
 
   private:
     // paremeters

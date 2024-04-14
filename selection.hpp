@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <iostream>
 #include <random>
 
 #include "genetic.hpp"
@@ -64,7 +63,6 @@ void ga<T1, T2>::roulette()
     for (size_t i = 0; i < population_size / 2; ++i)
     {
         p = population[dist(engine)];
-        std::cout << p << std::endl;
         tries = 0;
         while (std::find(parents.begin(), parents.end(), p) != parents.end() && tries < 20)
         {

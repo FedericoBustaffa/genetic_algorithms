@@ -100,7 +100,7 @@ int main(int argc, const char **argv)
     ga<int64_t, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations,
                                           problem_type::maximization);
 
-    genetic_knapsack.generate_population(true);
+    genetic_knapsack.generate_population();
     genetic_knapsack.evaluate_population(fitness, items, capacity);
     auto best_individual = genetic_knapsack.get_best_individual();
     int64_t value = 0;
@@ -117,7 +117,7 @@ int main(int argc, const char **argv)
     {
         genetic_knapsack.tournament();
         genetic_knapsack.random_crossover();
-        genetic_knapsack.random_mutate(mutation_rate);
+        genetic_knapsack.random_mutation(mutation_rate);
         genetic_knapsack.evaluate_offsprings(fitness, items, capacity);
         genetic_knapsack.replace();
         genetic_knapsack.evaluate_population(fitness, items, capacity);
