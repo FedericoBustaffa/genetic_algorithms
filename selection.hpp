@@ -11,6 +11,7 @@
 template <typename T1, typename T2>
 size_t ga<T1, T2>::tournament_clash()
 {
+    std::uniform_int_distribution<size_t> population_dist(0, population_size - 1);
     size_t p1 = population_dist(engine);
     size_t p2 = population_dist(engine);
     int tries = 0;
@@ -42,6 +43,8 @@ void ga<T1, T2>::tournament()
     }
 }
 
+
+// ************ FIX ************
 template <typename T1, typename T2>
 void ga<T1, T2>::roulette()
 {

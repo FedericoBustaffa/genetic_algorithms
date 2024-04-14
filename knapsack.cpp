@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
-#include <ctime>
 #include <iostream>
 #include <ostream>
 #include <random>
@@ -65,7 +64,8 @@ int main(int argc, const char **argv)
     }
 
     // generate random items
-    std::default_random_engine engine(std::time(nullptr));
+    std::random_device rd;
+    std::mt19937 engine(rd());
     std::uniform_int_distribution<int64_t> dist(1, 50);
 
     int64_t total_value = 0;
@@ -97,9 +97,10 @@ int main(int argc, const char **argv)
     double mutation_rate = std::stod(argv[4]);
 
     // genetic solver
-    ga<int64_t, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations);
+    ga<int64_t, int64_t> genetic_knapsack(population_size, num_of_items, {0, 1}, generations,
+                                          problem_type::maximization);
 
-    genetic_knapsack.generate_population();
+    genetic_knapsack.generate_population(true);
     genetic_knapsack.evaluate_population(fitness, items, capacity);
     auto best_individual = genetic_knapsack.get_best_individual();
     int64_t value = 0;
@@ -114,7 +115,7 @@ int main(int argc, const char **argv)
 
     for (size_t g = 0; g < generations; ++g)
     {
-        genetic_knapsack.roulette();
+        genetic_knapsack.tournament();
         genetic_knapsack.random_crossover();
         genetic_knapsack.random_mutate(mutation_rate);
         genetic_knapsack.evaluate_offsprings(fitness, items, capacity);

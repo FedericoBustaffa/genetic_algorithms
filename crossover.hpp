@@ -1,6 +1,7 @@
 #ifndef CROSSOVER_HPP
 #define CROSSOVER_HPP
 
+#include <cstddef>
 #include <cstdlib>
 #include <random>
 #include <vector>
@@ -26,6 +27,9 @@ template <typename T1, typename T2>
 void ga<T1, T2>::one_point_crossover()
 {
     offsprings.clear();
+
+    std::uniform_int_distribution<size_t> parents_dist(0, population_size / 2 - 1);
+    std::uniform_int_distribution<size_t> genome_values_dist(0, genome_values.size() - 1);
 
     size_t father;
     size_t mother;
@@ -53,6 +57,8 @@ template <typename T1, typename T2>
 void ga<T1, T2>::random_crossover()
 {
     offsprings.clear();
+
+    std::uniform_int_distribution<size_t> parents_dist(0, population_size / 2 - 1);
 
     size_t father;
     size_t mother;

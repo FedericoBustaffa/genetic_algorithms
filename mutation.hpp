@@ -10,6 +10,7 @@ template <typename T1, typename T2>
 void ga<T1, T2>::random_mutate(double mutation_rate)
 {
     std::bernoulli_distribution mutation_dist(mutation_rate);
+    std::uniform_int_distribution<size_t> genome_values_dist(0, genome_values.size() - 1);
 
     T1 old_gene;
     for (size_t i = 0; i < offsprings.size(); ++i)
