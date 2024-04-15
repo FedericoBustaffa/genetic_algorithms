@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <random>
 
@@ -73,6 +74,11 @@ int main(int argc, const char** argv)
     auto best_individual = genetic_tsp.get_best_individual();
     std::cout << "best distance: " << best_individual.get_fitness() << std::endl;
 
+    std::ofstream file("towns.csv");
+    file << "x,y" << std::endl;
+    for (size_t i = 0; i < num_of_towns; ++i)
+        file << towns[i].x << "," << towns[i].y << std::endl;
+
     for (size_t g = 0; g < generations; ++g)
     {
         genetic_tsp.roulette();
@@ -85,6 +91,9 @@ int main(int argc, const char** argv)
 
     best_individual = genetic_tsp.get_best_individual();
     std::cout << "best distance: " << best_individual.get_fitness() << std::endl;
+    std::ofstream solution("solution.txt");
+    for (size_t i = 0; i < num_of_towns; ++i)
+        solution << best_individual[i] << std::endl;
 
     return 0;
 }
