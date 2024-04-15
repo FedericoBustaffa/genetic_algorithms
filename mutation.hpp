@@ -36,7 +36,7 @@ void ga<T1, T2>::swap_mutation(double mutation_rate)
     std::uniform_int_distribution<size_t> genome_dist(0, genome_length - 1);
 
     size_t to_swap_gene;
-    for (size_t i = 0; i < offsprings.size(); ++i)
+    for (size_t i = 0; i < population_size; ++i)
     {
         for (size_t j = 0; j < genome_length; ++j)
         {
@@ -57,6 +57,21 @@ void ga<T1, T2>::swap_mutation(double mutation_rate)
 template <typename T1, typename T2>
 void ga<T1, T2>::rotate_mutation(double mutation_rate)
 {
+    std::bernoulli_distribution mutation_dist(mutation_rate);
+
+    size_t pivot;
+    for (size_t i = 0; i < population_size; ++i)
+    {
+        for (size_t j = 0; j < genome_length; ++j)
+        {
+            if (mutation_dist(engine))
+            {
+                std::vector<T1> genome = offsprings[i].get_genome();
+                pivot = (genome_length + j) / 2;
+                // implement rotation
+            }
+        }
+    }
 }
 
 #endif  // !MUTATION_HPP

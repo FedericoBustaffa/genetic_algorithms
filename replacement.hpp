@@ -15,6 +15,7 @@ void ga<T1, T2>::replace()
     if (type == problem_type::minimization)
     {
         std::sort(population.begin(), population.end());
+        std::sort(offsprings.begin(), offsprings.end());
         for (size_t i = 0; i < population_size; ++i)
         {
             if (population[population_idx] < offsprings[children_idx])
@@ -26,6 +27,7 @@ void ga<T1, T2>::replace()
     else
     {
         std::sort(population.rbegin(), population.rend());
+        std::sort(offsprings.rbegin(), offsprings.rend());
         for (size_t i = 0; i < population_size; ++i)
         {
             if (population[population_idx] > offsprings[children_idx])

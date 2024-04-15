@@ -19,7 +19,8 @@ struct item
 
 std::pair<int, int> greedy(std::vector<item> &items, int capacity)
 {
-    std::sort(items.begin(), items.end(), [](const item &a, const item &b)
+    std::sort(items.begin(), items.end(),
+              [](const item &a, const item &b)
               { return (double)a.value / a.weight > (double)b.value / b.weight; });
 
     int64_t weight = 0;
@@ -102,6 +103,7 @@ int main(int argc, const char **argv)
 
     genetic_knapsack.generate_population();
     genetic_knapsack.evaluate_population(fitness, items, capacity);
+
     auto best_individual = genetic_knapsack.get_best_individual();
     int64_t value = 0;
     int64_t weight = 0;

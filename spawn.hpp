@@ -14,14 +14,8 @@ individual<T1, T2> ga<T1, T2>::generate_genome()
 {
     std::uniform_int_distribution<size_t> genome_values_dist(0, genome_values.size() - 1);
     std::vector<T1> genome;
-    T1 new_gene;
     for (size_t i = 0; i < genome_length; ++i)
-    {
-        new_gene = genome_values[genome_values_dist(engine)];
-        while (std::find(genome.begin(), genome.end(), new_gene) != genome.end())
-            new_gene = genome_values[genome_values_dist(engine)];
-        genome.push_back(new_gene);
-    }
+        genome.push_back(genome_values[genome_values_dist(engine)]);
 
     return individual<T1, T2>(genome);
 }

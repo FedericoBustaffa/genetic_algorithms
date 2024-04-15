@@ -14,7 +14,7 @@ size_t ga<T1, T2>::tournament_clash()
     size_t p1 = population_dist(engine);
     size_t p2 = population_dist(engine);
     int tries = 0;
-    while (population[p1] == population[p2] && tries < 20)
+    while (p1 == p2 && tries < 20)
     {
         p2 = population_dist(engine);
         tries++;
@@ -42,8 +42,6 @@ void ga<T1, T2>::tournament()
     }
 }
 
-
-// ************ FIX ************
 template <typename T1, typename T2>
 void ga<T1, T2>::roulette()
 {
@@ -62,11 +60,11 @@ void ga<T1, T2>::roulette()
     int tries = 0;
     for (size_t i = 0; i < population_size / 2; ++i)
     {
-        p = population[dist(engine)];
+        p = dist(engine);
         tries = 0;
         while (std::find(parents.begin(), parents.end(), p) != parents.end() && tries < 20)
         {
-            p = population[dist(engine)];
+            p = dist(engine);
             tries++;
         }
         parents.push_back(p);

@@ -70,30 +70,13 @@ int main(int argc, const char** argv)
     genetic_tsp.shuffle_generate_population();
     genetic_tsp.evaluate_population(fitness, towns);
 
-    // auto population = genetic_tsp.get_population();
-    // for (size_t i = 0; i < population_size; ++i)
-    // {
-    //     for (size_t j = 0; j < num_of_towns; ++j)
-    //         std::cout << population[i][j] << std::flush;
-    //     std::cout << ": " << population[i].get_fitness() << std::endl;
-    // }
-
     auto best_individual = genetic_tsp.get_best_individual();
     std::cout << "best distance: " << best_individual.get_fitness() << std::endl;
 
     for (size_t g = 0; g < generations; ++g)
     {
-        genetic_tsp.tournament();
+        genetic_tsp.roulette();
         genetic_tsp.one_point_crossover_v2();
-
-        // population = genetic_tsp.get_population();
-        // for (size_t i = 0; i < population_size; ++i)
-        // {
-        //     for (size_t j = 0; j < num_of_towns; ++j)
-        //         std::cout << population[i][j] << std::flush;
-        //     std::cout << ": " << population[i].get_fitness() << std::endl;
-        // }
-
         genetic_tsp.swap_mutation(mutation_rate);
         genetic_tsp.evaluate_offsprings(fitness, towns);
         genetic_tsp.replace();
@@ -101,8 +84,6 @@ int main(int argc, const char** argv)
     }
 
     best_individual = genetic_tsp.get_best_individual();
-    // for (size_t i = 0; i < num_of_towns; ++i)
-    //     std::cout << best_individual[i] << std::endl;
     std::cout << "best distance: " << best_individual.get_fitness() << std::endl;
 
     return 0;

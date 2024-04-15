@@ -58,12 +58,18 @@ class ga
     template <typename Callable, typename... Args>
     void evaluate_population(Callable fitness, Args... args);
 
+    // evaluate offsprings with the given fitness function
     template <typename Callable, typename... Args>
     void evaluate_offsprings(Callable fitness, Args... args);
 
     // Selection systems
+    // pick randomly two individuals, the one with higher fitness
+    // is chosen to be a parent
     void tournament();
 
+    // pick randomly an individual
+    // individuals with higher fitness have more chances to be chosen
+    // DOES NOT WORK WITH NEGATIVE FITNESS VALUES
     void roulette();
 
     // crossover operators
@@ -81,7 +87,7 @@ class ga
     // swap two genes
     void swap_mutation(double mutation_rate);
 
-    // 
+    //
     void rotate_mutation(double mutation_rate);
 
     // replacemente policies
