@@ -44,6 +44,8 @@ class individual
 
     const std::vector<genome_type>& get_genome() const { return genome; }
 
+    void set_genome(const std::vector<genome_type>& genome) { this->genome = genome; }
+
   private:
     std::vector<genome_type> genome;
     fitness_type fitness;

@@ -1,10 +1,12 @@
 #ifndef MUTATION_HPP
 #define MUTATION_HPP
 
+#include <algorithm>
 #include <random>
 #include <vector>
 
 #include "genetic.hpp"
+#include "individual.hpp"
 
 template <typename T1, typename T2>
 void ga<T1, T2>::random_mutation(double mutation_rate)
@@ -58,18 +60,37 @@ template <typename T1, typename T2>
 void ga<T1, T2>::rotate_mutation(double mutation_rate)
 {
     std::bernoulli_distribution mutation_dist(mutation_rate);
+    std::uniform_int_distribution<size_t> genome_dist(0, genome_length - 1);
 
-    size_t pivot;
     for (size_t i = 0; i < population_size; ++i)
     {
-        for (size_t j = 0; j < genome_length; ++j)
+        if (mutation_dist(engine))
         {
-            if (mutation_dist(engine))
+            std::vector<T1> genome = offsprings[i].get_genome();
+            size_t a, b;
+            size_t first, second;
+
+            a = genome_dist(engine);
+            do
             {
-                std::vector<T1> genome = offsprings[i].get_genome();
-                pivot = (genome_length + j) / 2;
-                // implement rotation
-            }
+                b = genome_dist(engine);
+            } while (b == a);
+
+            first = a < b ? a : b;
+            second = a < b ? b : a;
+
+            std::vector<T1> new_genome(genome.begin(), genome.begin() + first);
+            std::vector<T1> middle(genome.begin() + first + 1, genome.begin() + (second - first));
+            std::reverse(middle.begin(), middle.end());
+            std::vector<T1> tail(genome.begin() + second, genome.end());
+
+            for (const auto& i : middle)
+                new_genome.push_back(i);
+
+            for (const auto& i : tail)
+                new_genome.push_back(i);
+
+            offsprings[i].set_genome(new_genome);
         }
     }
 }
