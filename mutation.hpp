@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "genetic.hpp"
-#include "individual.hpp"
 
 template <typename T1, typename T2>
 void ga<T1, T2>::random_mutation(double mutation_rate)
@@ -80,7 +79,7 @@ void ga<T1, T2>::rotate_mutation(double mutation_rate)
             second = a < b ? b : a;
 
             std::vector<T1> new_genome(genome.begin(), genome.begin() + first);
-            std::vector<T1> middle(genome.begin() + first + 1, genome.begin() + (second - first));
+            std::vector<T1> middle(genome.begin() + first, genome.begin() + first + second);
             std::reverse(middle.begin(), middle.end());
             std::vector<T1> tail(genome.begin() + second, genome.end());
 
