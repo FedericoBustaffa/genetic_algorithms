@@ -19,8 +19,7 @@ struct item
 
 std::pair<int, int> greedy(std::vector<item> &items, int capacity)
 {
-    std::sort(items.begin(), items.end(),
-              [](const item &a, const item &b)
+    std::sort(items.begin(), items.end(), [](const item &a, const item &b)
               { return (double)a.value / a.weight > (double)b.value / b.weight; });
 
     int64_t weight = 0;
@@ -67,7 +66,7 @@ int main(int argc, const char **argv)
     // generate random items
     std::random_device rd;
     std::mt19937 engine(rd());
-    std::uniform_int_distribution<int64_t> dist(1, 50);
+    std::uniform_int_distribution<int64_t> dist(1, 100);
 
     int64_t total_value = 0;
     int64_t total_weight = 0;
@@ -115,6 +114,7 @@ int main(int argc, const char **argv)
     std::cout << "value: " << value << std::endl;
     std::cout << "weight: " << weight << std::endl;
 
+    individual<int64_t, int64_t> current_best;
     for (size_t g = 0; g < generations; ++g)
     {
         genetic_knapsack.tournament();
@@ -123,9 +123,11 @@ int main(int argc, const char **argv)
         genetic_knapsack.evaluate_offsprings(fitness, items, capacity);
         genetic_knapsack.replace();
         genetic_knapsack.evaluate_population(fitness, items, capacity);
+        current_best = genetic_knapsack.get_best_individual();
+        if (current_best > best_individual)
+            best_individual = current_best;
     }
 
-    best_individual = genetic_knapsack.get_best_individual();
     value = 0;
     weight = 0;
     for (size_t i = 0; i < num_of_items; ++i)
