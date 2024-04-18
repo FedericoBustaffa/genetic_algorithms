@@ -61,13 +61,13 @@ int main(int argc, const char** argv)
         genome_values.push_back(i);
     }
 
-    std::cout << "************ GENETIC ****************" << std::endl;
     size_t population_size = std::stoul(argv[2]);
     size_t generations = std::stoul(argv[3]);
     double mutation_rate = std::stod(argv[4]);
 
     ga<int64_t, double> genetic_tsp(population_size, num_of_towns, genome_values, generations,
                                     problem_type::minimization);
+
     genetic_tsp.shuffle_generate_population();
     genetic_tsp.evaluate_population(fitness, towns);
 
@@ -80,17 +80,13 @@ int main(int argc, const char** argv)
         file << towns[i].x << "," << towns[i].y << std::endl;
 
     individual<int64_t, double> current_best;
-    std::bernoulli_distribution mutation_dist(0.5);
     for (size_t g = 0; g < generations; ++g)
     {
         genetic_tsp.roulette();
 
         genetic_tsp.one_point_crossover_v2();
 
-        if (mutation_dist(engine))
-            genetic_tsp.rotate_mutation(mutation_rate);
-        else
-            genetic_tsp.swap_mutation(mutation_rate);
+        genetic_tsp.rotate_mutation(mutation_rate);
 
         genetic_tsp.evaluate_offsprings(fitness, towns);
 
