@@ -31,7 +31,7 @@ double fitness(const std::vector<int64_t> genome, const std::vector<town>& towns
         total_distance += std::sqrt(std::pow(x, 2) + std::pow(y, 2));
     }
 
-    return total_distance;
+    return total_distance / (towns.size() - 1);
 }
 
 int main(int argc, const char** argv)

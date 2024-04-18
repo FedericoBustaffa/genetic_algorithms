@@ -18,7 +18,9 @@ y_new = [y[solution[i]] for i in range(len(y))]
 
 plt.figure(figsize=(10, 6))
 
-plt.scatter(x, y, c="r", label="town")
+plt.scatter(x, y, c="r", label="middle town")
+plt.scatter([x_new[0]], [y_new[0]], c="g", label="start town")
+plt.scatter([x_new[-1]], [y_new[-1]], c="b", label="final town")
 plt.plot(x_new, y_new, c="k", label="path")
 
 plt.title("Best path found")
