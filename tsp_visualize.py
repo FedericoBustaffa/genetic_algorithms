@@ -13,9 +13,17 @@ while line != "":
     solution.append(int(line))
     line = file.readline()
 
-plt.scatter(x, y, c="r")
-print(x)
-x, y, solution = zip(*sorted(zip(x, y, solution), key=lambda s: s[2]))
-print(x)
-plt.plot(x, y, c="k")
+plt.figure(figsize=(12, 8))
+plt.title("Best path found")
+plt.xlabel("X town coordinate")
+plt.ylabel("Y town coordinate")
+
+plt.scatter(x, y, c="r", label="town")
+
+x_new = [x[solution[i]] for i in range(len(x))]
+y_new = [y[solution[i]] for i in range(len(y))]
+
+plt.plot(x_new, y_new, c="k", label="path")
+
+plt.legend()
 plt.show()

@@ -79,14 +79,28 @@ int main(int argc, const char** argv)
     for (size_t i = 0; i < num_of_towns; ++i)
         file << towns[i].x << "," << towns[i].y << std::endl;
 
+    individual<int64_t, double> current_best;
+    std::bernoulli_distribution mutation_dist(0.5);
     for (size_t g = 0; g < generations; ++g)
     {
         genetic_tsp.roulette();
+
         genetic_tsp.one_point_crossover_v2();
-        genetic_tsp.swap_mutation(mutation_rate);
+
+        if (mutation_dist(engine))
+            genetic_tsp.rotate_mutation(mutation_rate);
+        else
+            genetic_tsp.swap_mutation(mutation_rate);
+
         genetic_tsp.evaluate_offsprings(fitness, towns);
+
         genetic_tsp.replace();
+
         genetic_tsp.evaluate_population(fitness, towns);
+
+        current_best = genetic_tsp.get_best_individual();
+        if (current_best > best_individual)
+            best_individual = current_best;
     }
 
     best_individual = genetic_tsp.get_best_individual();

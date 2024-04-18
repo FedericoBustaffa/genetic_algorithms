@@ -76,6 +76,9 @@ class ga
     // split the father's and mother's genomes in one random point
     void one_point_crossover();
 
+    // the offspring takes half of father's genome as it is and
+    // then the remaining mother's genes are chosen excluding the
+    // genes already passed by father
     void one_point_crossover_v2();
 
     // every gene has 50% of chance to be ineherited by father or mother

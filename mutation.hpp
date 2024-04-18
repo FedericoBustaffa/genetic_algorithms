@@ -79,15 +79,16 @@ void ga<T1, T2>::rotate_mutation(double mutation_rate)
             second = a < b ? b : a;
 
             std::vector<T1> new_genome(genome.begin(), genome.begin() + first);
-            std::vector<T1> middle(genome.begin() + first, genome.begin() + first + second);
+
+            std::vector<T1> middle(genome.begin() + first,
+                                   genome.begin() + first + (second - first));
+
             std::reverse(middle.begin(), middle.end());
+
             std::vector<T1> tail(genome.begin() + second, genome.end());
 
-            for (const auto& i : middle)
-                new_genome.push_back(i);
-
-            for (const auto& i : tail)
-                new_genome.push_back(i);
+            new_genome.insert(new_genome.end(), middle.begin(), middle.end());
+            new_genome.insert(new_genome.end(), tail.begin(), tail.end());
 
             offsprings[i].set_genome(new_genome);
         }
