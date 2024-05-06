@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/federico/dev/cpp/genetic_algorithms/tests/maze/build",
-  "command": "/usr/bin/c++  -I/home/federico/dev/cpp/genetic_algorithms/tests/maze/../../include  -o CMakeFiles/maze.dir/maze_solver.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/maze/maze_solver.cpp",
-  "file": "/home/federico/dev/cpp/genetic_algorithms/tests/maze/maze_solver.cpp",
-  "output": "CMakeFiles/maze.dir/maze_solver.cpp.o"
-}
-]

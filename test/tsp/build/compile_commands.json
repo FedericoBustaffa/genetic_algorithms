@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build",
-  "command": "/usr/bin/c++  -I/home/federico/dev/cpp/genetic_algorithms/tests/tsp/../../include  -o CMakeFiles/tsp.dir/src/tsp.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp",
-  "file": "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp",
-  "output": "CMakeFiles/tsp.dir/src/tsp.cpp.o"
-}
-]

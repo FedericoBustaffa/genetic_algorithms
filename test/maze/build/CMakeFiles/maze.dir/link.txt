@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/maze.dir/maze_solver.cpp.o -o maze 
