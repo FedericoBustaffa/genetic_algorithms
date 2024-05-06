@@ -1,0 +1,3 @@
+/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles/tsp.dir
+/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles/edit_cache.dir
+/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles/rebuild_cache.dir

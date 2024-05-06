@@ -1,0 +1,3 @@
+/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/build/CMakeFiles/knapsack.dir
+/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/build/CMakeFiles/edit_cache.dir
+/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/build/CMakeFiles/rebuild_cache.dir
