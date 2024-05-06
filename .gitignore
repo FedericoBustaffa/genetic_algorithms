@@ -3,4 +3,4 @@
 solution.txt
 *.csv
 
-build/**
+build/
