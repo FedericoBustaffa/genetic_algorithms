@@ -1,13 +1,19 @@
 #include <algorithm>
+#include <crossover.hpp>
 #include <cstddef>
 #include <cstdint>
+#include <evaluation.hpp>
+#include <genetic.hpp>
+#include <individual.hpp>
 #include <iostream>
+#include <mutation.hpp>
 #include <ostream>
 #include <random>
+#include <replacement.hpp>
+#include <selection.hpp>
+#include <spawn.hpp>
 #include <string>
 #include <vector>
-
-#include "genetic_algorithms.hpp"
 
 struct item
 {

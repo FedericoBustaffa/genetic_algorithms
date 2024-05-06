@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build",
+  "command": "/usr/bin/c++  -I/home/federico/dev/cpp/genetic_algorithms/tests/tsp/../../include  -o CMakeFiles/tsp.dir/tsp.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp",
+  "file": "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp",
+  "output": "CMakeFiles/tsp.dir/tsp.cpp.o"
+}
+]

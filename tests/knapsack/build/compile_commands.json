@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/build",
+  "command": "/usr/bin/c++  -I/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/../../include  -o CMakeFiles/knapsack.dir/knapsack.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/knapsack/knapsack.cpp",
+  "file": "/home/federico/dev/cpp/genetic_algorithms/tests/knapsack/knapsack.cpp",
+  "output": "CMakeFiles/knapsack.dir/knapsack.cpp.o"
+}
+]

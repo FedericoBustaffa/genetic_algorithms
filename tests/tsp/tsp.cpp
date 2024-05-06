@@ -1,12 +1,18 @@
 #include <algorithm>
+#include <crossover.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
+#include <evaluation.hpp>
 #include <fstream>
+#include <genetic.hpp>
+#include <individual.hpp>
 #include <iostream>
+#include <mutation.hpp>
 #include <random>
-
-#include "genetic_algorithms.hpp"
+#include <replacement.hpp>
+#include <selection.hpp>
+#include <spawn.hpp>
 
 struct town
 {
