@@ -129,29 +129,29 @@ tsp/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/build
 .PHONY : tsp/fast
 
-tsp.o: tsp.cpp.o
-.PHONY : tsp.o
+src/tsp.o: src/tsp.cpp.o
+.PHONY : src/tsp.o
 
 # target to build an object file
-tsp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/tsp.cpp.o
-.PHONY : tsp.cpp.o
+src/tsp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/src/tsp.cpp.o
+.PHONY : src/tsp.cpp.o
 
-tsp.i: tsp.cpp.i
-.PHONY : tsp.i
+src/tsp.i: src/tsp.cpp.i
+.PHONY : src/tsp.i
 
 # target to preprocess a source file
-tsp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/tsp.cpp.i
-.PHONY : tsp.cpp.i
+src/tsp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/src/tsp.cpp.i
+.PHONY : src/tsp.cpp.i
 
-tsp.s: tsp.cpp.s
-.PHONY : tsp.s
+src/tsp.s: src/tsp.cpp.s
+.PHONY : src/tsp.s
 
 # target to generate assembly for a file
-tsp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/tsp.cpp.s
-.PHONY : tsp.cpp.s
+src/tsp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tsp.dir/build.make CMakeFiles/tsp.dir/src/tsp.cpp.s
+.PHONY : src/tsp.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... tsp"
-	@echo "... tsp.o"
-	@echo "... tsp.i"
-	@echo "... tsp.s"
+	@echo "... src/tsp.o"
+	@echo "... src/tsp.i"
+	@echo "... src/tsp.s"
 .PHONY : help
 
 

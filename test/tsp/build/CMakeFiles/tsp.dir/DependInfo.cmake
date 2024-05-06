@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp" "CMakeFiles/tsp.dir/tsp.cpp.o" "gcc" "CMakeFiles/tsp.dir/tsp.cpp.o.d"
+  "/home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp" "CMakeFiles/tsp.dir/src/tsp.cpp.o" "gcc" "CMakeFiles/tsp.dir/src/tsp.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

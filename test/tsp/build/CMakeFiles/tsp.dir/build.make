@@ -69,28 +69,28 @@ include CMakeFiles/tsp.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/tsp.dir/flags.make
 
-CMakeFiles/tsp.dir/tsp.cpp.o: CMakeFiles/tsp.dir/flags.make
-CMakeFiles/tsp.dir/tsp.cpp.o: /home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp
-CMakeFiles/tsp.dir/tsp.cpp.o: CMakeFiles/tsp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tsp.dir/tsp.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tsp.dir/tsp.cpp.o -MF CMakeFiles/tsp.dir/tsp.cpp.o.d -o CMakeFiles/tsp.dir/tsp.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp
+CMakeFiles/tsp.dir/src/tsp.cpp.o: CMakeFiles/tsp.dir/flags.make
+CMakeFiles/tsp.dir/src/tsp.cpp.o: /home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp
+CMakeFiles/tsp.dir/src/tsp.cpp.o: CMakeFiles/tsp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tsp.dir/src/tsp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tsp.dir/src/tsp.cpp.o -MF CMakeFiles/tsp.dir/src/tsp.cpp.o.d -o CMakeFiles/tsp.dir/src/tsp.cpp.o -c /home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp
 
-CMakeFiles/tsp.dir/tsp.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tsp.dir/tsp.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp > CMakeFiles/tsp.dir/tsp.cpp.i
+CMakeFiles/tsp.dir/src/tsp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tsp.dir/src/tsp.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp > CMakeFiles/tsp.dir/src/tsp.cpp.i
 
-CMakeFiles/tsp.dir/tsp.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tsp.dir/tsp.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/federico/dev/cpp/genetic_algorithms/tests/tsp/tsp.cpp -o CMakeFiles/tsp.dir/tsp.cpp.s
+CMakeFiles/tsp.dir/src/tsp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tsp.dir/src/tsp.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/federico/dev/cpp/genetic_algorithms/tests/tsp/src/tsp.cpp -o CMakeFiles/tsp.dir/src/tsp.cpp.s
 
 # Object files for target tsp
 tsp_OBJECTS = \
-"CMakeFiles/tsp.dir/tsp.cpp.o"
+"CMakeFiles/tsp.dir/src/tsp.cpp.o"
 
 # External object files for target tsp
 tsp_EXTERNAL_OBJECTS =
 
-tsp: CMakeFiles/tsp.dir/tsp.cpp.o
+tsp: CMakeFiles/tsp.dir/src/tsp.cpp.o
 tsp: CMakeFiles/tsp.dir/build.make
 tsp: CMakeFiles/tsp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/federico/dev/cpp/genetic_algorithms/tests/tsp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable tsp"
