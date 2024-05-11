@@ -4,3 +4,4 @@ solution.txt
 *.csv
 
 build/
+.cache/
