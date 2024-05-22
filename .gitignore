@@ -5,3 +5,5 @@ solution.txt
 
 build/
 .cache/
+.env/
+*.egg-info/
