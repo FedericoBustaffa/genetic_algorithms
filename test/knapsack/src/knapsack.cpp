@@ -1,23 +1,24 @@
 #include <algorithm>
-#include <crossover.hpp>
 #include <cstddef>
 #include <cstdint>
-#include <evaluation.hpp>
-#include <genetic.hpp>
-#include <individual.hpp>
 #include <iostream>
-#include <mutation.hpp>
 #include <ostream>
 #include <random>
-#include <replacement.hpp>
-#include <selection.hpp>
-#include <spawn.hpp>
 #include <string>
 #include <vector>
 
+#include "crossover.hpp"
+#include "evaluation.hpp"
+#include "genetic.hpp"
+#include "individual.hpp"
+#include "mutation.hpp"
+#include "replacement.hpp"
+#include "selection.hpp"
+#include "spawn.hpp"
+
 struct item
 {
-    item(int64_t value, int64_t weight) : value(value), weight(weight) {};
+    item(int64_t value, int64_t weight) : value(value), weight(weight){};
 
     int64_t value;
     int64_t weight;

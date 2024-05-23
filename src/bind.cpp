@@ -1,32 +1,36 @@
-#include <pybind11/attr.h>
-#include <pybind11/cast.h>
-#include <pybind11/numpy.h>
+#include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/pytypes.h>
 #include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
 
 #include <cstddef>
 #include <cstdint>
 #include <vector>
 
-#include "genetic.hpp"
+#include "crossover.hpp"
+#include "evaluation.hpp"
+#include "individual.hpp"
+#include "mutation.hpp"
+#include "replacement.hpp"
+#include "selection.hpp"
+#include "spawn.hpp"
 
 namespace py = pybind11;
 
-void modify(int& a) { a = 1; }
-
-void sum_one(py::array_t<int>& l)
-{
-    for (size_t i = 0; i < l.size(); ++i)
-        l[i] = l[i] + 1;
-}
-
 PYBIND11_MODULE(genetic, m)
 {
-    m.def("modify", &modify, "modify a number into 1");
-
-    m.def("sum_one", &sum_one, "sum one to all numbers");
+    py::class_<individual<int64_t, int64_t>>(m, "individual")
+        .def(py::init<const std::vector<int64_t> &>())
+        .def(py::init<const individual<int64_t, int64_t> &>())
+        .def(py::self == py::self)
+        .def(py::self < py::self)
+        .def(py::self <= py::self)
+        .def(py::self > py::self)
+        .def(py::self >= py::self)
+        .def("get_fitness", &individual<int64_t, int64_t>::get_fitness)
+        .def("set_fitness", &individual<int64_t, int64_t>::set_fitness)
+        .def("get_genome", &individual<int64_t, int64_t>::get_genome)
+        .def("set_genome", &individual<int64_t, int64_t>::set_genome);
 
     py::enum_<problem_type>(m, "problem_type")
         .value("minimization", problem_type::minimization)
@@ -34,6 +38,26 @@ PYBIND11_MODULE(genetic, m)
         .export_values();
 
     py::class_<ga<int64_t, int64_t>>(m, "ga")
-        .def(py::init<size_t, size_t, const std::vector<int64_t>&, size_t, problem_type>())
-        .def("get_population_size", &ga<int64_t, int64_t>::get_population_size);
+        .def(py::init<size_t, size_t, const std::vector<int64_t> &, size_t, problem_type>())
+
+        .def("get_population", &ga<int64_t, int64_t>::get_population)
+        .def("get_population_size", &ga<int64_t, int64_t>::get_population_size)
+        .def("get_genome_length", &ga<int64_t, int64_t>::get_genome_length)
+        .def("get_best_individual", &ga<int64_t, int64_t>::get_best_individual)
+
+        .def("generate_population", &ga<int64_t, int64_t>::generate_population)
+        .def("shuffle_generate_population", &ga<int64_t, int64_t>::shuffle_generate_population)
+
+        .def("tournament", &ga<int64_t, int64_t>::tournament)
+        .def("roulette", &ga<int64_t, int64_t>::roulette)
+
+        .def("one_point_crossover", &ga<int64_t, int64_t>::one_point_crossover)
+        .def("one_point_crossover_v2", &ga<int64_t, int64_t>::one_point_crossover_v2)
+        .def("random_crossover", &ga<int64_t, int64_t>::random_crossover)
+
+        .def("random_mutation", &ga<int64_t, int64_t>::random_mutation)
+        .def("swap_mutation", &ga<int64_t, int64_t>::swap_mutation)
+        .def("rotate_mutation", &ga<int64_t, int64_t>::rotate_mutation)
+
+        .def("replace", &ga<int64_t, int64_t>::replace);
 }

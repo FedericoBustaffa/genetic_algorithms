@@ -2,6 +2,7 @@
 #define INDIVIDUAL_HPP
 
 #include <cstddef>
+#include <iostream>
 #include <vector>
 
 template <typename genome_type, typename fitness_type>
