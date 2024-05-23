@@ -2,7 +2,7 @@ from setuptools import setup
 
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
-ext_modules = [Pybind11Extension("genetic", ["src/genetic.cpp"])]
+ext_modules = [Pybind11Extension("genetic", ["src/bind.cpp"])]
 
 setup(
     name="genetic",
