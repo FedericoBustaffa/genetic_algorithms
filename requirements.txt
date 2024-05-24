@@ -3,3 +3,6 @@ wheel
 setuptools
 numpy
 scipy
+mypy
+flags
+typing
