@@ -35,6 +35,19 @@ PYBIND11_MODULE(genetic, m)
         .def("get_genome", &individual<int64_t, int64_t>::get_genome)
         .def("set_genome", &individual<int64_t, int64_t>::set_genome);
 
+    py::class_<individual<int64_t, double>>(m, "individual")
+        .def(py::init<const std::vector<int64_t> &>())
+        .def(py::init<const individual<int64_t, double> &>())
+        .def(py::self == py::self)
+        .def(py::self < py::self)
+        .def(py::self <= py::self)
+        .def(py::self > py::self)
+        .def(py::self >= py::self)
+        .def("get_fitness", &individual<int64_t, double>::get_fitness)
+        .def("set_fitness", &individual<int64_t, double>::set_fitness)
+        .def("get_genome", &individual<int64_t, double>::get_genome)
+        .def("set_genome", &individual<int64_t, double>::set_genome);
+
     py::enum_<problem_type>(m, "problem_type")
         .value("minimization", problem_type::minimization)
         .value("maximization", problem_type::maximization)
@@ -66,4 +79,31 @@ PYBIND11_MODULE(genetic, m)
         .def("rotate_mutation", &ga<int64_t, int64_t>::rotate_mutation)
 
         .def("replace", &ga<int64_t, int64_t>::replace);
+
+    py::class_<ga<int64_t, double>>(m, "ga")
+        .def(py::init<size_t, size_t, const std::vector<int64_t> &, size_t, problem_type>())
+
+        .def("get_population", &ga<int64_t, double>::get_population)
+        .def("get_population_size", &ga<int64_t, double>::get_population_size)
+        .def("get_genome_length", &ga<int64_t, double>::get_genome_length)
+        .def("get_best_individual", &ga<int64_t, double>::get_best_individual)
+
+        .def("generate_population", &ga<int64_t, double>::generate_population)
+        .def("shuffle_generate_population", &ga<int64_t, double>::shuffle_generate_population)
+
+        .def("evaluate_population", &ga<int64_t, double>::evaluate_population_py<py::float_>)
+        .def("evaluate_offsprings", &ga<int64_t, double>::evaluate_offsprings_py<py::float_>)
+
+        .def("tournament", &ga<int64_t, double>::tournament)
+        .def("roulette", &ga<int64_t, double>::roulette)
+
+        .def("one_point_crossover", &ga<int64_t, double>::one_point_crossover)
+        .def("one_point_crossover_v2", &ga<int64_t, double>::one_point_crossover_v2)
+        .def("random_crossover", &ga<int64_t, double>::random_crossover)
+
+        .def("random_mutation", &ga<int64_t, double>::random_mutation)
+        .def("swap_mutation", &ga<int64_t, double>::swap_mutation)
+        .def("rotate_mutation", &ga<int64_t, double>::rotate_mutation)
+
+        .def("replace", &ga<int64_t, double>::replace);
 }

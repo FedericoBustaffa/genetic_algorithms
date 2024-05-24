@@ -25,7 +25,7 @@ void ga<T1, T2>::evaluate_population_py(const py::function& fitness, const py::a
 {
     for (size_t i = 0; i < population_size; ++i)
         population[i].set_fitness(
-            static_cast<py_type>(fitness(population[i].get_genome(), *args)));
+            static_cast<T2>(static_cast<py_type>(fitness(population[i].get_genome(), *args))));
 }
 
 template <typename T1, typename T2>

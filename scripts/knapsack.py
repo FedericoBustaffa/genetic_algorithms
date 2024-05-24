@@ -10,6 +10,20 @@ class item:
         self.weight = weight
 
 
+def greedy(items: list[item], capacity: float):
+    # sorting
+    items = sorted(items, key=lambda x: x.value / x.weight, reverse=True)
+
+    weight = 0
+    value = 0
+    for i in items:
+        if weight + i.weight <= capacity:
+            weight += i.weight
+            value += i.value
+
+    return value, weight
+
+
 def fitness(genome, items, capacity):
     value = 0
     weight = 0
@@ -42,6 +56,11 @@ if __name__ == "__main__":
 
     capacity = total_weight * 0.75
 
+    value, weight = greedy(items, capacity)
+    print("GREEDY")
+    print(f"value: {value}")
+    print(f"weight: {weight}")
+
     population_size = int(sys.argv[2])
     generations = int(sys.argv[3])
     mutation_rate = float(sys.argv[4])
@@ -64,6 +83,7 @@ if __name__ == "__main__":
         value += best.get_genome()[i] * items[i].value
         weight += best.get_genome()[i] * items[i].weight
 
+    print("GENETIC FIRST BEST SOLUTION")
     print(f"value: {value}")
     print(f"weight: {weight}")
 
@@ -71,7 +91,7 @@ if __name__ == "__main__":
     for i in range(generations):
         knapsack.tournament()
         knapsack.random_crossover()
-        knapsack.random_mutation(0.01)
+        knapsack.random_mutation(mutation_rate)
         knapsack.evaluate_offsprings(fitness, items, capacity)
         knapsack.replace()
         knapsack.evaluate_population(fitness, items, capacity)
@@ -85,5 +105,6 @@ if __name__ == "__main__":
         value += best.get_genome()[i] * items[i].value
         weight += best.get_genome()[i] * items[i].weight
 
+    print("GENETIC BEST SOLUTION")
     print(f"value: {value}")
     print(f"weight: {weight}")

@@ -15,9 +15,9 @@ pybind11_add_module(genetic ${SOURCES} ${HEADERS})
 
 target_compile_options(genetic PRIVATE -Wall -O3)
 
-set(stubgen "${CMAKE_SOURCE_DIR}/.env/bin/stubgen")
-add_custom_command(
-  TARGET genetic
-  POST_BUILD
-  COMMAND ${stubgen} -m genetic -o ..
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+# set(stubgen "${CMAKE_SOURCE_DIR}/.env/bin/stubgen")
+# add_custom_command(
+#   TARGET genetic
+#   POST_BUILD
+#   COMMAND ${stubgen} -m genetic -o ..
+#   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
