@@ -65,12 +65,14 @@ class ga
     template <typename Callable, typename... Args>
     void evaluate_population(Callable fitness, Args... args);
 
+    template <typename py_type>
     void evaluate_population_py(const py::function& fitness, const py::args& args);
 
     // evaluate offsprings with the given fitness function
     template <typename Callable, typename... Args>
     void evaluate_offsprings(Callable fitness, Args... args);
 
+    template <typename py_type>
     void evaluate_offsprings_py(const py::function& fitness, const py::args& args);
 
     // Selection systems

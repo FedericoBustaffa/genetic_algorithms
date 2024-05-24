@@ -18,29 +18,9 @@
 
 namespace py = pybind11;
 
-template <typename T>
-class Invoker
-{
-  public:
-    Invoker(T x) : x(x) {}
-    // Metodo che accetta una funzione e un numero variabile di parametri
-    void invoke(const py::function &func, const py::args &args)
-    {
-        // Chiama la funzione con gli argomenti passati
-        func(x, *args);
-    }
-
-  private:
-    T x;
-};
-
 PYBIND11_MODULE(genetic, m)
 {
     m.doc() = "Genetic algorithm module";
-
-    py::class_<Invoker<int>>(m, "Invoker")
-        .def(py::init<int>())
-        .def("invoke", &Invoker<int>::invoke);
 
     py::class_<individual<int64_t, int64_t>>(m, "individual")
         .def(py::init<const std::vector<int64_t> &>())
@@ -71,8 +51,8 @@ PYBIND11_MODULE(genetic, m)
         .def("generate_population", &ga<int64_t, int64_t>::generate_population)
         .def("shuffle_generate_population", &ga<int64_t, int64_t>::shuffle_generate_population)
 
-        .def("evaluate_population", &ga<int64_t, int64_t>::evaluate_population_py)
-        .def("evaluate_offsprings", &ga<int64_t, int64_t>::evaluate_offsprings_py)
+        .def("evaluate_population", &ga<int64_t, int64_t>::evaluate_population_py<py::int_>)
+        .def("evaluate_offsprings", &ga<int64_t, int64_t>::evaluate_offsprings_py<py::int_>)
 
         .def("tournament", &ga<int64_t, int64_t>::tournament)
         .def("roulette", &ga<int64_t, int64_t>::roulette)

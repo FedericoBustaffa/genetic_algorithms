@@ -20,10 +20,12 @@ void ga<T1, T2>::evaluate_population(Callable fitness, Args... args)
 }
 
 template <typename T1, typename T2>
+template <typename py_type>
 void ga<T1, T2>::evaluate_population_py(const py::function& fitness, const py::args& args)
 {
     for (size_t i = 0; i < population_size; ++i)
-        population[i].set_fitness(py::int_(fitness(population[i].get_genome(), *args)));
+        population[i].set_fitness(
+            static_cast<py_type>(fitness(population[i].get_genome(), *args)));
 }
 
 template <typename T1, typename T2>
@@ -35,10 +37,12 @@ void ga<T1, T2>::evaluate_offsprings(Callable fitness, Args... args)
 }
 
 template <typename T1, typename T2>
+template <typename py_type>
 void ga<T1, T2>::evaluate_offsprings_py(const py::function& fitness, const py::args& args)
 {
     for (size_t i = 0; i < population_size; ++i)
-        offsprings[i].set_fitness(py::int_(fitness(population[i].get_genome(), *args)));
+        offsprings[i].set_fitness(
+            static_cast<py_type>(fitness(population[i].get_genome(), *args)));
 }
 
 #endif  // !EVALUATION_HPP
