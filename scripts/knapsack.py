@@ -10,7 +10,7 @@ class item:
         self.weight = weight
 
 
-def fitness(genome: list[int], items: list[item], capacity: int):
+def fitness(genome, items, capacity):
     value = 0
     weight = 0
     for i in range(len(genome)):
@@ -55,6 +55,35 @@ if __name__ == "__main__":
     )
 
     knapsack.generate_population()
+    knapsack.evaluate_population(fitness, items, capacity)
 
-    for i in knapsack.get_population():
-        print(i.get_genome())
+    best = knapsack.get_best_individual()
+    value = 0
+    weight = 0
+    for i in range(num_of_items):
+        value += best.get_genome()[i] * items[i].value
+        weight += best.get_genome()[i] * items[i].weight
+
+    print(f"value: {value}")
+    print(f"weight: {weight}")
+
+    current_best = genetic.individual(best)
+    for i in range(generations):
+        knapsack.tournament()
+        knapsack.random_crossover()
+        knapsack.random_mutation(0.01)
+        knapsack.evaluate_offsprings(fitness, items, capacity)
+        knapsack.replace()
+        knapsack.evaluate_population(fitness, items, capacity)
+        current_best = knapsack.get_best_individual()
+        if current_best > best:
+            best = current_best
+
+    value = 0
+    weight = 0
+    for i in range(num_of_items):
+        value += best.get_genome()[i] * items[i].value
+        weight += best.get_genome()[i] * items[i].weight
+
+    print(f"value: {value}")
+    print(f"weight: {weight}")

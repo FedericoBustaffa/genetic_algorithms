@@ -13,6 +13,8 @@ add_subdirectory(pybind11)
 pybind11_add_module(genetic ${SOURCES} ${HEADERS})
 # target_link_libraries(genetic PRIVATE pybind11::pybind11)
 
+target_compile_options(genetic PRIVATE -Wall -O3)
+
 set(stubgen "${CMAKE_SOURCE_DIR}/.env/bin/stubgen")
 add_custom_command(
   TARGET genetic

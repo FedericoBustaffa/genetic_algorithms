@@ -1,11 +1,18 @@
 #ifndef GENETIC_HPP
 #define GENETIC_HPP
 
+#include <pybind11/functional.h>
+#include <pybind11/pybind11.h>
+#include <pybind11/pytypes.h>
+#include <pybind11/stl.h>
+
 #include <algorithm>
 #include <random>
 #include <vector>
 
 #include "individual.hpp"
+
+namespace py = pybind11;
 
 enum class problem_type
 {
@@ -58,9 +65,13 @@ class ga
     template <typename Callable, typename... Args>
     void evaluate_population(Callable fitness, Args... args);
 
+    void evaluate_population_py(const py::function& fitness, const py::args& args);
+
     // evaluate offsprings with the given fitness function
     template <typename Callable, typename... Args>
     void evaluate_offsprings(Callable fitness, Args... args);
+
+    void evaluate_offsprings_py(const py::function& fitness, const py::args& args);
 
     // Selection systems
     // pick randomly two individuals, the one with higher fitness
