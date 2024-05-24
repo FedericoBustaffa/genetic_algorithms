@@ -3,6 +3,8 @@ import random
 import sys
 
 import genetic
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class town:
@@ -11,7 +13,7 @@ class town:
         self.y = y
 
 
-def fitness(genome, towns):
+def fitness(genome: list[int], towns: list[town]) -> float:
     total_distance = 0
     for i in range(len(towns) - 1):
         x = towns[genome[i]].x - towns[genome[i + 1]].x
@@ -30,7 +32,7 @@ if __name__ == "__main__":
         exit(-1)
 
     num_of_towns = int(sys.argv[1])
-    towns = []
+    towns: list[town] = []
     genome_values = []
     for i in range(num_of_towns):
         t = town(random.uniform(50, 100), random.uniform(50, 100))
@@ -57,7 +59,6 @@ if __name__ == "__main__":
     best_individual = tsp.get_best_individual()
     print(f"best distance: {best_individual.get_fitness()}")
 
-    current_best = genetic.individual(best_individual)
     for g in range(generations):
         tsp.roulette()
         tsp.one_point_crossover_v2()
@@ -65,8 +66,34 @@ if __name__ == "__main__":
         tsp.evaluate_offsprings(fitness, towns)
         tsp.replace()
         tsp.evaluate_population(fitness, towns)
-        current_best = tsp.get_best_individual()
-        if current_best > best_individual:
-            best_individual = current_best
 
+    best_individual = tsp.get_best_individual()
     print(f"best distance: {best_individual.get_fitness()}")
+
+
+    for t in towns:
+        x = t.x
+        y = t.y
+
+    file = open("solution.txt", "r")
+    line = file.readline()
+    solution = []
+    while line != "":
+        solution.append(int(line))
+        line = file.readline()
+
+    x_new = [x[solution[i]] for i in range(len(x))]
+    y_new = [y[solution[i]] for i in range(len(y))]
+
+    plt.figure(figsize=(10, 6))
+
+    plt.scatter(x, y, c="r", label="middle town")
+    plt.scatter([x_new[0]], [y_new[0]], c="g", label="start town")
+    plt.scatter([x_new[-1]], [y_new[-1]], c="b", label="final town")
+    plt.plot(x_new, y_new, c="k", label="path")
+
+    plt.title("Best path found")
+    plt.xlabel("X town coordinate")
+    plt.ylabel("Y town coordinate")
+    plt.legend()
+    plt.show()
