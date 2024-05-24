@@ -11,13 +11,13 @@ git clone --recurse-submodules https://github.com/FedericoBustaffa/genetic_algor
 Una volta clonata installare i pacchetti necessari con `pip` tramite il comando
 
 ```bash
+cd genetic_algorithms
 pip install -r requirements.txt
 ```
 
 Compilare il modulo con `cmake`
 
 ```bash
-cd genetic_algorithms/
 mkdir build
 cd build
 cmake ..
