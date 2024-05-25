@@ -1,7 +1,5 @@
 *.o
 *.x
-solution.txt
-*.csv
 
 build/
 .cache/

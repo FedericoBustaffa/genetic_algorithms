@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 template <typename genome_type, typename fitness_type>
@@ -25,9 +26,13 @@ class individual
         fitness = other.fitness;
     }
 
-    const genome_type operator[](size_t i) const { return genome[i]; }
+    genome_type& set(const size_t i) { return genome[i]; }
 
-    genome_type& operator[](size_t i) { return genome[i]; }
+    const genome_type get(const size_t i) const { return genome[i]; }
+
+    const genome_type operator[](const size_t i) const { return genome[i]; }
+
+    genome_type& operator[](const size_t i) { return genome[i]; }
 
     bool operator==(const individual& other) const { return genome == other.genome; }
 

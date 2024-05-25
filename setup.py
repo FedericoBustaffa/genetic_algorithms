@@ -4,10 +4,7 @@ from setuptools import setup
 
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
-# generate file for intellisense
-subprocess.check_call(["stubgen", "-m", "genetic", "-o", "."])
-
-ext_modules = [Pybind11Extension("genetic", ["src/bind.cpp"])]
+ext_modules = [Pybind11Extension("genetic", ["bind/bind.cpp"])]
 
 setup(
     name="genetic",
@@ -15,3 +12,5 @@ setup(
     version="0.0.1",
     cmdclass={"build_ext": build_ext},
 )
+
+subprocess.check_call(["stubgen", "-m", "genetic", "-o", "."])

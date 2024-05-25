@@ -10,6 +10,7 @@
 
 #include "crossover.hpp"
 #include "evaluation.hpp"
+#include "genetic.hpp"
 #include "individual.hpp"
 #include "mutation.hpp"
 #include "replacement.hpp"
@@ -43,6 +44,8 @@ PYBIND11_MODULE(genetic, m)
         .def(py::self <= py::self)
         .def(py::self > py::self)
         .def(py::self >= py::self)
+        .def("__getitem__", &individual<int64_t, double>::get)
+        .def("__setitem__", &individual<int64_t, double>::set)
         .def("get_fitness", &individual<int64_t, double>::get_fitness)
         .def("set_fitness", &individual<int64_t, double>::set_fitness)
         .def("get_genome", &individual<int64_t, double>::get_genome)

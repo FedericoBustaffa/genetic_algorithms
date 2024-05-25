@@ -4,7 +4,6 @@ import sys
 
 import genetic
 import matplotlib.pyplot as plt
-import pandas as pd
 
 
 class town:
@@ -35,9 +34,9 @@ if __name__ == "__main__":
     towns: list[town] = []
     genome_values = []
     for i in range(num_of_towns):
-        t = town(random.uniform(50, 100), random.uniform(50, 100))
+        t = town(random.uniform(50, 200), random.uniform(50, 200))
         while t in towns:
-            t = town(random.uniform(50, 100), random.uniform(50, 100))
+            t = town(random.uniform(50, 200), random.uniform(50, 200))
         towns.append(t)
         genome_values.append(i)
 
@@ -70,22 +69,14 @@ if __name__ == "__main__":
     best_individual = tsp.get_best_individual()
     print(f"best distance: {best_individual.get_fitness()}")
 
+    x = [t.x for t in towns]
+    y = [t.y for t in towns]
 
-    for t in towns:
-        x = t.x
-        y = t.y
-
-    file = open("solution.txt", "r")
-    line = file.readline()
-    solution = []
-    while line != "":
-        solution.append(int(line))
-        line = file.readline()
-
+    solution = best_individual.get_genome()
     x_new = [x[solution[i]] for i in range(len(x))]
     y_new = [y[solution[i]] for i in range(len(y))]
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
 
     plt.scatter(x, y, c="r", label="middle town")
     plt.scatter([x_new[0]], [y_new[0]], c="g", label="start town")

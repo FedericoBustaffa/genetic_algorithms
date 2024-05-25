@@ -2,6 +2,8 @@ pybind11
 wheel
 setuptools
 numpy
+matplotlib
+pandas
 scipy
 mypy
 flags
