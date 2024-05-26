@@ -11,7 +11,6 @@ class item:
 
 
 def greedy(items: list[item], capacity: float):
-    # sorting
     items = sorted(items, key=lambda x: x.value / x.weight, reverse=True)
 
     weight = 0
