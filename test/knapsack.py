@@ -86,7 +86,6 @@ if __name__ == "__main__":
     print(f"value: {value}")
     print(f"weight: {weight}")
 
-    current_best = genetic.individual(best)
     for i in range(generations):
         knapsack.tournament()
         knapsack.random_crossover()
@@ -95,9 +94,8 @@ if __name__ == "__main__":
         knapsack.replace()
         knapsack.evaluate_population(fitness, items, capacity)
         current_best = knapsack.get_best_individual()
-        if current_best > best:
-            best = current_best
 
+    best = knapsack.get_best_individual()
     value = 0
     weight = 0
     for i in range(num_of_items):
