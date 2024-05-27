@@ -7,7 +7,7 @@ pip install -r requirements.txt
 mkdir build
 cd build
 cmake ..
-make
+make -j
 cd ..
 pip install .
 
